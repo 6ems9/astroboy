@@ -1,5 +1,11 @@
 ---
-
+import {
+  contactInfo,
+  socialMedia,
+  about,
+  experience,
+  education,
+} from "../data/about_resume";
 ---
 
 <html lang="en">
@@ -26,13 +32,9 @@
     <div class="vcard-wrapper">
       <!-- Left Sidebar -->
       <aside class="panel-box sidebar">
-        <img
-          src="https://ui-avatars.com/api/?name=Astro+Boy&background=c084fc&color=fff&size=150"
-          alt="Avatar"
-          class="avatar"
-        />
-        <h1 class="name">Astro Boy</h1>
-        <p class="role">Full-Stack Developer</p>
+        <img src={contactInfo.image} alt="Avatar" class="avatar" />
+        <h1 class="name">{contactInfo.name}</h1>
+        <p class="role">{contactInfo.role}</p>
 
         <div class="divider"></div>
 
@@ -41,28 +43,28 @@
             <i class="fa-solid fa-phone icon"></i>
             <div>
               <span>Phone</span>
-              <p>+62 812 3456 7890</p>
+              <p>{contactInfo.phone}</p>
             </div>
           </div>
           <div class="contact-item">
             <i class="fa-solid fa-envelope icon"></i>
             <div>
               <span>Email</span>
-              <p>astroboy@domain.com</p>
+              <p>{contactInfo.email}</p>
             </div>
           </div>
           <div class="contact-item">
             <i class="fa-solid fa-location-dot icon"></i>
             <div>
               <span>Location</span>
-              <p>Bogor, ID</p>
+              <p>{contactInfo.location}</p>
             </div>
           </div>
         </div>
 
         <div class="social-links">
           <a
-            href="https://www.facebook.com/#"
+            href={socialMedia.facebook}
             target="_blank"
             rel="noopener noreferrer"
             class="social-link"
@@ -70,7 +72,7 @@
             <i class="fa-brands fa-facebook"></i>
           </a>
           <a
-            href="https://www.instagram.com/#"
+            href={socialMedia.instagram}
             target="_blank"
             rel="noopener noreferrer"
             class="social-link"
@@ -78,7 +80,7 @@
             <i class="fa-brands fa-instagram"></i>
           </a>
           <a
-            href="https://github.com/#"
+            href={socialMedia.github}
             target="_blank"
             rel="noopener noreferrer"
             class="social-link"
@@ -106,15 +108,7 @@
               <i class="fa-solid fa-user-astronaut"></i> About Me
             </h2>
             <p class="text-muted">
-              lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-              efficitur, nisl vel tincidunt lacinia, nunc est ultricies nunc, ut
-              lacus nunc nisl vel nunc. Donec euismod, nisl vel tincidunt
-              lacinia, nunc est ultricies nunc, ut lacus nunc nisl vel nunc.
-              Donec euismod, nisl vel tincidunt lacinia, nunc est ultricies
-              nunc, ut lacus nunc nisl vel nunc. Donec euismod, nisl vel
-              tincidunt lacinia, nunc est ultricies nunc, ut lacus nunc nisl vel
-              nunc. Donec euismod, nisl vel tincidunt lacinia, nunc est
-              ultricies nunc, ut lacus nunc nisl vel nunc.
+              {about.description}
             </p>
 
             <div class="about-grid mt-5">
@@ -123,22 +117,23 @@
                   <i class="fa-solid fa-code"></i> What i'm doing
                 </h3>
                 <div class="tags mt-3">
-                  <span class="tag">Frontend</span>
-                  <span class="tag">Backend</span>
-                  <span class="tag">Full-Stack</span>
-                  <span class="tag">Mobile Apps</span>
-                  <span class="tag">UI/UX Design</span>
-                  <span class="tag">DevOps Engineer</span>
+                  {
+                    about.skills.map((skill, index) => (
+                      <span class="tag" key={index}>
+                        {skill}
+                      </span>
+                    ))
+                  }
                 </div>
               </div>
 
               <div class="sub-card stats-flex">
                 <div class="stat">
-                  <h4>3+</h4>
+                  <h4>{about.experience}</h4>
                   <p>Years of Experience</p>
                 </div>
                 <div class="stat">
-                  <h4>20+</h4>
+                  <h4>{about.project}</h4>
                   <p>Projects Completed</p>
                 </div>
               </div>
@@ -156,33 +151,15 @@
                 <i class="fa-solid fa-briefcase"></i> Experience
               </h3>
               <div class="timeline">
-                <div class="timeline-item">
-                  <h4 class="timeline-title">Full-Stack Developer</h4>
-                  <span class="timeline-period">2022 — Present</span>
-                  <p class="text-muted">
-                    Nemo enim ipsam voluptatem blanditiis praesentium voluptum
-                    delenit atque corrupti, quos dolores et qvuas molestias
-                    exceptur.
-                  </p>
-                </div>
-                <div class="timeline-item">
-                  <h4 class="timeline-title">Web Designer</h4>
-                  <span class="timeline-period">2020 — 2022</span>
-                  <p class="text-muted">
-                    Nemo enims ipsam voluptatem, blanditiis praesentium voluptum
-                    delenit atque corrupti, quos dolores et quas molestias
-                    exceptur.
-                  </p>
-                </div>
-                <div class="timeline-item">
-                  <h4 class="timeline-title">Freelance Web Developer</h4>
-                  <span class="timeline-period">2017 — 2020</span>
-                  <p class="text-muted">
-                    Nemo enims ipsam voluptatem, blanditiis praesentium voluptum
-                    delenit atque corrupti, quos dolores et quas molestias
-                    exceptur.
-                  </p>
-                </div>
+                {
+                  experience.map((item) => (
+                    <div class="timeline-item">
+                      <h4 class="timeline-title">{item.position}</h4>
+                      <span class="timeline-period">{item.period}</span>
+                      <p class="text-muted">{item.description}</p>
+                    </div>
+                  ))
+                }
               </div>
             </div>
 
@@ -191,35 +168,15 @@
                 <i class="fa-solid fa-book-open"></i> Education
               </h3>
               <div class="timeline">
-                <div class="timeline-item">
-                  <h4 class="timeline-title">
-                    National University of Technology
-                  </h4>
-                  <span class="timeline-period">2013 - 2017</span>
-                  <p class="text-muted">
-                    lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    efficitur, nisl vel tincidunt lacinia, nunc est ultricies
-                    nunc, ut lacus nunc nisl vel nunc.
-                  </p>
-                </div>
-                <div class="timeline-item">
-                  <h4 class="timeline-title">Jakarta Academy of Design</h4>
-                  <span class="timeline-period">2010 — 2011</span>
-                  <p class="text-muted">
-                    lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    efficitur, nisl vel tincidunt lacinia, nunc est ultricies
-                    nunc, ut lacus nunc nisl vel nunc.
-                  </p>
-                </div>
-                <div class="timeline-item">
-                  <h4 class="timeline-title">Senior High School</h4>
-                  <span class="timeline-period">2007 — 2010</span>
-                  <p class="text-muted">
-                    lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    efficitur, nisl vel tincidunt lacinia, nunc est ultricies
-                    nunc, ut lacus nunc nisl vel nunc.
-                  </p>
-                </div>
+                {
+                  education.map((item) => (
+                    <div class="timeline-item">
+                      <h4 class="timeline-title">{item.school}</h4>
+                      <span class="timeline-period">{item.period}</span>
+                      <p class="text-muted">{item.description}</p>
+                    </div>
+                  ))
+                }
               </div>
             </div>
           </section>
