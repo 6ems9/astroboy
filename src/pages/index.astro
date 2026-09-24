@@ -219,12 +219,30 @@ import "../styles/global.css";
             <p class="text-muted">
               Let's collaborate and build your next great project together.
             </p>
-            <form class="contact-form mt-4">
-              <input type="text" placeholder="Your Name" class="form-input" />
-              <input type="email" placeholder="Your Email" class="form-input" />
-              <textarea placeholder="Your Message" rows="4" class="form-input"
+            <form class="contact-form mt-4" id="contact-form">
+              <input
+                type="text"
+                name="name"
+                placeholder="Your Name"
+                class="form-input"
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Your Email"
+                class="form-input"
+                required
+              />
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                rows="4"
+                class="form-input"
+                required
               ></textarea>
-              <button type="button" class="btn-primary">Send Message</button>
+              <button type="submit" class="btn-primary">Send Message</button>
+              <div id="form-message" class="form-message" aria-live="polite"></div>
             </form>
           </section>
         </div>
@@ -235,60 +253,72 @@ import "../styles/global.css";
 
 <script>
   const scrollContainer = document.querySelector(".scrollable-area");
-  const sections = document.querySelectorAll(".content-section");
-  const navLinks = document.querySelectorAll(".inner-navbar a");
+  const sections = [...document.querySelectorAll(".content-section")];
+  const navLinks = [...document.querySelectorAll(".inner-navbar a")];
 
-  // Active link on click
+  const setActiveLink = (sectionId: string | null) => {
+    const targetHash = sectionId ? `#${sectionId}` : "#about";
+
+    navLinks.forEach((link) => {
+      const isActive = link.getAttribute("href") === targetHash;
+      link.classList.toggle("active", isActive);
+    });
+  };
+
   navLinks.forEach((link) => {
-    link.addEventListener("click", function () {
-      navLinks.forEach((l) => l.classList.remove("active"));
+    link.addEventListener("click", function (this: HTMLAnchorElement) {
+      navLinks.forEach((item) => item.classList.remove("active"));
       this.classList.add("active");
     });
   });
 
-  // IntersectionObserver
-  const observerOptions = {
-    root: scrollContainer,
-    rootMargin: "0px 0px -50% 0px",
-    threshold: 0,
-  };
+  const observerRoot = window.innerWidth > 900 ? scrollContainer : null;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute("id");
-        navLinks.forEach((link) => {
-          link.classList.remove("active");
-          if (link.getAttribute("href") === `#${id}`) {
-            link.classList.add("active");
-          }
-        });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visibleEntries = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+      if (visibleEntries.length > 0) {
+        const activeId = visibleEntries[0].target.getAttribute("id");
+        setActiveLink(activeId);
       }
-    });
-  }, observerOptions);
+    },
+    {
+      root: observerRoot,
+      rootMargin: "0px 0px -45% 0px",
+      threshold: [0.2, 0.5, 0.8],
+    },
+  );
 
-  sections.forEach((section) => {
-    observer.observe(section);
-  });
+  sections.forEach((section) => observer.observe(section));
+  setActiveLink("about");
 
-  // Form submission handler
-  const contactForm = document.querySelector(".contact-form");
-  const formMessage = document.getElementById("form-message");
+  const contactForm = document.getElementById("contact-form") as HTMLFormElement | null;
+  const formMessage = document.getElementById("form-message") as HTMLDivElement | null;
 
   if (contactForm) {
-    contactForm.addEventListener("submit", function (e) {
+    contactForm.addEventListener("submit", function (this: HTMLFormElement, e: SubmitEvent) {
       e.preventDefault();
 
       const formData = new FormData(this);
       const data = {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        message: formData.get("message"),
+        name: String(formData.get("name") ?? "").trim(),
+        email: String(formData.get("email") ?? "").trim(),
+        message: String(formData.get("message") ?? "").trim(),
       };
+
+      if (!data.name || !data.email || !data.message) {
+        if (formMessage) {
+          formMessage.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Please complete all fields before sending.';
+          formMessage.className = "form-message error";
+        }
+        return;
+      }
 
       console.log("Form submitted:", data);
 
-      // Show success message
       if (formMessage) {
         formMessage.innerHTML = `<i class="fa-solid fa-check-circle"></i> Message sent successfully! Thank you, ${data.name}.`;
         formMessage.className = "form-message success";
