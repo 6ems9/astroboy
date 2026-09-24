@@ -3,15 +3,288 @@
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+	<link rel="icon" href="/favicon.ico" />
+	<meta name="viewport" content="width=device-width" />
+	<meta name="generator" content={Astro.generator} />
+    <title>AstroBoy | Folio vCard </title>
+    <!-- Font Outfit -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icon Font -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="vcard-wrapper">
+      <!-- Left Sidebar -->
+      <aside class="panel-box sidebar">
+        <img
+          src="https://ui-avatars.com/api/?name=Astro+Boy&background=c084fc&color=fff&size=150"
+          alt="Avatar"
+          class="avatar"
+        />
+        <h1 class="name">Astro Boy</h1>
+        <p class="role">Full-Stack Developer</p>
+
+        <div class="divider"></div>
+
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fa-solid fa-phone icon"></i>
+            <div>
+              <span>Phone</span>
+              <p>+62 812 3456 7890</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-envelope icon"></i>
+            <div>
+              <span>Email</span>
+              <p>astroboy@domain.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <i class="fa-solid fa-location-dot icon"></i>
+            <div>
+              <span>Location</span>
+              <p>Bogor, ID</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a
+            href="https://www.facebook.com/#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+          >
+            <i class="fa-brands fa-facebook"></i>
+          </a>
+          <a
+            href="https://www.instagram.com/#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+          >
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a
+            href="https://github.com/#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+          >
+            <i class="fa-brands fa-github"></i>
+          </a>
+        </div>
+      </aside>
+
+      <!-- Right Main Content -->
+      <main class="panel-box main-window">
+        <!-- NAVBAR (Sticky) -->
+        <nav class="inner-navbar">
+          <a href="#about" class="nav-link active">About</a>
+          <a href="#resume" class="nav-link">Resume</a>
+          <a href="#portfolio" class="nav-link">Portfolio</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <!-- SCROLL AREA -->
+        <div class="scrollable-area">
+          <!-- 1. ABOUT -->
+          <section id="about" class="content-section">
+            <h2 class="section-title">
+              <i class="fa-solid fa-user-astronaut"></i> About Me
+            </h2>
+            <p class="text-muted">
+              lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+              efficitur, nisl vel tincidunt lacinia, nunc est ultricies nunc, ut
+              lacus nunc nisl vel nunc. Donec euismod, nisl vel tincidunt
+              lacinia, nunc est ultricies nunc, ut lacus nunc nisl vel nunc.
+              Donec euismod, nisl vel tincidunt lacinia, nunc est ultricies
+              nunc, ut lacus nunc nisl vel nunc. Donec euismod, nisl vel
+              tincidunt lacinia, nunc est ultricies nunc, ut lacus nunc nisl vel
+              nunc. Donec euismod, nisl vel tincidunt lacinia, nunc est
+              ultricies nunc, ut lacus nunc nisl vel nunc.
+            </p>
+
+            <div class="about-grid mt-5">
+              <div class="sub-card">
+                <h3 class="section-subtitle">
+                  <i class="fa-solid fa-code"></i> What i'm doing
+                </h3>
+                <div class="tags mt-3">
+                  <span class="tag">Frontend</span>
+                  <span class="tag">Backend</span>
+                  <span class="tag">Full-Stack</span>
+                  <span class="tag">Mobile Apps</span>
+                  <span class="tag">UI/UX Design</span>
+                  <span class="tag">DevOps Engineer</span>
+                </div>
+              </div>
+
+              <div class="sub-card stats-flex">
+                <div class="stat">
+                  <h4>3+</h4>
+                  <p>Years of Experience</p>
+                </div>
+                <div class="stat">
+                  <h4>20+</h4>
+                  <p>Projects Completed</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 2. RESUME -->
+          <section id="resume" class="content-section">
+            <h2 class="section-title">
+              <i class="fa-solid fa-graduation-cap"></i> Resume
+            </h2>
+
+            <div class="resume-category">
+              <h3 class="section-subtitle">
+                <i class="fa-solid fa-briefcase"></i> Experience
+              </h3>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <h4 class="timeline-title">Full-Stack Developer</h4>
+                  <span class="timeline-period">2022 — Present</span>
+                  <p class="text-muted">
+                    Nemo enim ipsam voluptatem blanditiis praesentium voluptum
+                    delenit atque corrupti, quos dolores et qvuas molestias
+                    exceptur.
+                  </p>
+                </div>
+                <div class="timeline-item">
+                  <h4 class="timeline-title">Web Designer</h4>
+                  <span class="timeline-period">2020 — 2022</span>
+                  <p class="text-muted">
+                    Nemo enims ipsam voluptatem, blanditiis praesentium voluptum
+                    delenit atque corrupti, quos dolores et quas molestias
+                    exceptur.
+                  </p>
+                </div>
+                <div class="timeline-item">
+                  <h4 class="timeline-title">Freelance Web Developer</h4>
+                  <span class="timeline-period">2017 — 2020</span>
+                  <p class="text-muted">
+                    Nemo enims ipsam voluptatem, blanditiis praesentium voluptum
+                    delenit atque corrupti, quos dolores et quas molestias
+                    exceptur.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="resume-category mt-5">
+              <h3 class="section-subtitle">
+                <i class="fa-solid fa-book-open"></i> Education
+              </h3>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <h4 class="timeline-title">
+                    National University of Technology
+                  </h4>
+                  <span class="timeline-period">2013 - 2017</span>
+                  <p class="text-muted">
+                    lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    efficitur, nisl vel tincidunt lacinia, nunc est ultricies
+                    nunc, ut lacus nunc nisl vel nunc.
+                  </p>
+                </div>
+                <div class="timeline-item">
+                  <h4 class="timeline-title">Jakarta Academy of Design</h4>
+                  <span class="timeline-period">2010 — 2011</span>
+                  <p class="text-muted">
+                    lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    efficitur, nisl vel tincidunt lacinia, nunc est ultricies
+                    nunc, ut lacus nunc nisl vel nunc.
+                  </p>
+                </div>
+                <div class="timeline-item">
+                  <h4 class="timeline-title">Senior High School</h4>
+                  <span class="timeline-period">2007 — 2010</span>
+                  <p class="text-muted">
+                    lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                    efficitur, nisl vel tincidunt lacinia, nunc est ultricies
+                    nunc, ut lacus nunc nisl vel nunc.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. PORTFOLIO -->
+          <section id="portfolio" class="content-section">
+            <h2 class="section-title">
+              <i class="fa-solid fa-layer-group"></i> Portfolio
+            </h2>
+            <div class="portfolio-grid">
+              <div class="portfolio-card">
+                <div class="portfolio-img"></div>
+                <h4>E-Commerce Platform</h4>
+                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+              <div class="portfolio-card">
+                <div class="portfolio-img"></div>
+                <h4>SaaS Dashboard</h4>
+                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+              <div class="portfolio-card">
+                <div class="portfolio-img"></div>
+                <h4>Point of Sale (POS)</h4>
+                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+              <div class="portfolio-card">
+                <div class="portfolio-img"></div>
+                <h4>Crypto Tracker</h4>
+                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+              <div class="portfolio-card">
+                <div class="portfolio-img"></div>
+                <h4>Company Profile</h4>
+                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+              <div class="portfolio-card">
+                <div class="portfolio-img"></div>
+                <h4>Chat App</h4>
+                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. CONTACT -->
+          <section
+            id="contact"
+            class="content-section"
+            style="padding-bottom: 5rem;"
+          >
+            <h2 class="section-title">
+              <i class="fa-solid fa-envelope"></i> Contact Me
+            </h2>
+            <p class="text-muted">
+              Let's collaborate and build your next great project together.
+            </p>
+            <form class="contact-form mt-4">
+              <input type="text" placeholder="Your Name" class="form-input" />
+              <input type="email" placeholder="Your Email" class="form-input" />
+              <textarea placeholder="Your Message" rows="4" class="form-input"
+              ></textarea>
+              <button type="button" class="btn-primary">Send Message</button>
+            </form>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
 </html>
