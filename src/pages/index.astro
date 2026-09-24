@@ -252,86 +252,92 @@ import "../styles/global.css";
 </html>
 
 <script>
-  const scrollContainer = document.querySelector(".scrollable-area");
-  const sections = [...document.querySelectorAll(".content-section")];
-  const navLinks = [...document.querySelectorAll(".inner-navbar a")];
+  document.addEventListener("DOMContentLoaded", () => {
+    const scrollContainer = document.querySelector(".scrollable-area");
+    const sections = [...document.querySelectorAll(".content-section")];
+    const navLinks = [...document.querySelectorAll(".inner-navbar a")];
+    const contactForm = document.querySelector("#contact-form") as HTMLFormElement | null;
+    const formMessage = document.querySelector("#form-message") as HTMLDivElement | null;
 
-  const setActiveLink = (sectionId: string | null) => {
-    const targetHash = sectionId ? `#${sectionId}` : "#about";
+    const setActiveLink = (sectionId: string | null) => {
+      const targetHash = sectionId ? `#${sectionId}` : "#about";
+
+      navLinks.forEach((link) => {
+        const isActive = link.getAttribute("href") === targetHash;
+        link.classList.toggle("active", isActive);
+      });
+    };
+
+    const showFormMessage = (message: string, type: "success" | "error") => {
+      if (!formMessage) return;
+
+      formMessage.innerHTML = message;
+      formMessage.className = `form-message ${type}`;
+    };
+
+    const hideFormMessage = () => {
+      if (!formMessage) return;
+
+      formMessage.innerHTML = "";
+      formMessage.className = "form-message";
+    };
 
     navLinks.forEach((link) => {
-      const isActive = link.getAttribute("href") === targetHash;
-      link.classList.toggle("active", isActive);
+      link.addEventListener("click", () => {
+        const targetId = link.getAttribute("href")?.replace("#", "") ?? "about";
+        setActiveLink(targetId);
+      });
     });
-  };
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", function (this: HTMLAnchorElement) {
-      navLinks.forEach((item) => item.classList.remove("active"));
-      this.classList.add("active");
-    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visibleEntries.length > 0) {
+          const activeId = visibleEntries[0].target.getAttribute("id");
+          setActiveLink(activeId);
+        }
+      },
+      {
+        root: window.innerWidth > 900 ? scrollContainer : null,
+        rootMargin: "0px 0px -40% 0px",
+        threshold: [0.2, 0.5, 0.8],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    setActiveLink("about");
+
+    if (contactForm) {
+      contactForm.addEventListener("submit", (event: SubmitEvent) => {
+        event.preventDefault();
+
+        const formData = new FormData(contactForm);
+        const data = {
+          name: String(formData.get("name") ?? "").trim(),
+          email: String(formData.get("email") ?? "").trim(),
+          message: String(formData.get("message") ?? "").trim(),
+        };
+
+        if (!data.name || !data.email || !data.message) {
+          showFormMessage(
+            '<i class="fa-solid fa-triangle-exclamation"></i> Please complete all fields before sending.',
+            "error",
+          );
+          return;
+        }
+
+        console.log("Form submitted:", data);
+        showFormMessage(
+          `<i class="fa-solid fa-check-circle"></i> Message sent successfully! Thank you, ${data.name}.`,
+          "success",
+        );
+
+        contactForm.reset();
+        window.setTimeout(hideFormMessage, 5000);
+      });
+    }
   });
-
-  const observerRoot = window.innerWidth > 900 ? scrollContainer : null;
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visibleEntries = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-      if (visibleEntries.length > 0) {
-        const activeId = visibleEntries[0].target.getAttribute("id");
-        setActiveLink(activeId);
-      }
-    },
-    {
-      root: observerRoot,
-      rootMargin: "0px 0px -45% 0px",
-      threshold: [0.2, 0.5, 0.8],
-    },
-  );
-
-  sections.forEach((section) => observer.observe(section));
-  setActiveLink("about");
-
-  const contactForm = document.getElementById("contact-form") as HTMLFormElement | null;
-  const formMessage = document.getElementById("form-message") as HTMLDivElement | null;
-
-  if (contactForm) {
-    contactForm.addEventListener("submit", function (this: HTMLFormElement, e: SubmitEvent) {
-      e.preventDefault();
-
-      const formData = new FormData(this);
-      const data = {
-        name: String(formData.get("name") ?? "").trim(),
-        email: String(formData.get("email") ?? "").trim(),
-        message: String(formData.get("message") ?? "").trim(),
-      };
-
-      if (!data.name || !data.email || !data.message) {
-        if (formMessage) {
-          formMessage.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Please complete all fields before sending.';
-          formMessage.className = "form-message error";
-        }
-        return;
-      }
-
-      console.log("Form submitted:", data);
-
-      if (formMessage) {
-        formMessage.innerHTML = `<i class="fa-solid fa-check-circle"></i> Message sent successfully! Thank you, ${data.name}.`;
-        formMessage.className = "form-message success";
-      }
-
-      this.reset();
-
-      setTimeout(() => {
-        if (formMessage) {
-          formMessage.innerHTML = "";
-          formMessage.className = "form-message";
-        }
-      }, 5000);
-    });
-  }
 </script>
