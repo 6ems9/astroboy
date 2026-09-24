@@ -871,3 +871,76 @@
     }
   }
 </style>
+
+<script>
+  const scrollContainer = document.querySelector(".scrollable-area");
+  const sections = document.querySelectorAll(".content-section");
+  const navLinks = document.querySelectorAll(".inner-navbar a");
+
+  // Active link on click
+  navLinks.forEach((link) => {
+    link.addEventListener("click", function () {
+      navLinks.forEach((l) => l.classList.remove("active"));
+      this.classList.add("active");
+    });
+  });
+
+  // IntersectionObserver
+  const observerOptions = {
+    root: scrollContainer,
+    rootMargin: "0px 0px -50% 0px",
+    threshold: 0,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute("id");
+        navLinks.forEach((link) => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${id}`) {
+            link.classList.add("active");
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((section) => {
+    observer.observe(section);
+  });
+
+  // Form submission handler
+  const contactForm = document.querySelector(".contact-form");
+  const formMessage = document.getElementById("form-message");
+
+  if (contactForm) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const data = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        message: formData.get("message"),
+      };
+
+      console.log("Form submitted:", data);
+
+      // Show success message
+      if (formMessage) {
+        formMessage.innerHTML = `<i class="fa-solid fa-check-circle"></i> Message sent successfully! Thank you, ${data.name}.`;
+        formMessage.className = "form-message success";
+      }
+
+      this.reset();
+
+      setTimeout(() => {
+        if (formMessage) {
+          formMessage.innerHTML = "";
+          formMessage.className = "form-message";
+        }
+      }, 5000);
+    });
+  }
+</script>
