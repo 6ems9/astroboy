@@ -6,6 +6,7 @@ import {
   experience,
   education,
 } from "../data/about_resume";
+import { portfolioItems } from "../data/portfolio";
 ---
 
 <html lang="en">
@@ -118,10 +119,8 @@ import {
                 </h3>
                 <div class="tags mt-3">
                   {
-                    about.skills.map((skill, index) => (
-                      <span class="tag" key={index}>
-                        {skill}
-                      </span>
+                    about.skills.map((skill) => (
+                      <span class="tag">{skill}</span>
                     ))
                   }
                 </div>
@@ -187,36 +186,23 @@ import {
               <i class="fa-solid fa-layer-group"></i> Portfolio
             </h2>
             <div class="portfolio-grid">
-              <div class="portfolio-card">
-                <div class="portfolio-img"></div>
-                <h4>E-Commerce Platform</h4>
-                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-              <div class="portfolio-card">
-                <div class="portfolio-img"></div>
-                <h4>SaaS Dashboard</h4>
-                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-              <div class="portfolio-card">
-                <div class="portfolio-img"></div>
-                <h4>Point of Sale (POS)</h4>
-                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-              <div class="portfolio-card">
-                <div class="portfolio-img"></div>
-                <h4>Crypto Tracker</h4>
-                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-              <div class="portfolio-card">
-                <div class="portfolio-img"></div>
-                <h4>Company Profile</h4>
-                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
-              <div class="portfolio-card">
-                <div class="portfolio-img"></div>
-                <h4>Chat App</h4>
-                <p>lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
+              {
+                portfolioItems.map((item) => (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="portfolio-card"
+                  >
+                    <div
+                      class="portfolio-img"
+                      style={`background-image: url('${item.image}'); background-size: cover; background-position: center;`}
+                    />
+                    <h4>{item.title}</h4>
+                    <p>{item.description}</p>
+                  </a>
+                ))
+              }
             </div>
           </section>
 
