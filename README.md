@@ -1,43 +1,67 @@
-# Astro Starter Kit: Minimal
+# AstroBoy | Folio VCard
 
-```sh
-npm create astro@latest -- --template minimal
+A clean and modern personal portfolio vCard built with pure Astro.
+
+This project is fully powered by Astro — no React, Vue, or other UI framework. It’s designed to showcase a personal profile, resume, portfolio work, and contact details in a lightweight single-page layout.
+
+## Features
+
+- Pure Astro project
+- Responsive portfolio layout
+- About, Resume, Portfolio, and Contact sections
+- Smooth scrolling and active nav state
+- Easy content editing via data files
+- Fast static build
+
+## Getting Started
+
+```bash
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Open:
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```bash
+http://localhost:4321
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Build
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```bash
+npm run build
+npm run preview
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Customize Content
 
-## 🧞 Commands
+Update your content in:
 
-All commands are run from the root of the project, from a terminal:
+- src/data/about_resume.ts
+- src/data/portfolio.ts
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+You can change:
 
-## 👀 Want to learn more?
+- name, role, email, phone, and location
+- about text and skills
+- experience and education
+- portfolio items and links
+- social media URLs
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Project Structure
+
+```bash
+src/
+├── data/
+│   ├── about_resume.ts
+│   └── portfolio.ts
+├── pages/
+│   └── index.astro
+├── styles/
+│   └── global.css
+└── public/
+```
+
+## License
+
+MIT
